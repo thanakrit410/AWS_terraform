@@ -1,19 +1,12 @@
-# resource "helm_release" "nginx_ingress" {
-#   name       = "nginx-ingress"
-#   repository = "https://kubernetes.github.io/ingress-nginx"
-#   chart      = "ingress-nginx"
-#   version    = "4.0.18"  # เลือกเวอร์ชันที่ต้องการ
+resource "helm_release" "nginx-ingress-controller" {
+  name       = "nginx-ingress-controller"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "nginx-ingress-controller"
 
-#   namespace  = "ingress-nginx"
-#   create_namespace = true
 
-#   set {
-#     name  = "controller.replicaCount"
-#     value = "2"
-#   }
+  set {
+    name  = "service.type"
+    value = "LoadBalancer"
+  }
 
-#   set {
-#     name  = "controller.service.annotations.service.beta.kubernetes.io/aws-load-balancer-internal"
-#     value = "true"  # กำหนด Load Balancer ให้เป็น Internal
-#   }
-# }
+}
